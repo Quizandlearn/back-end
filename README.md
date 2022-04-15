@@ -36,11 +36,11 @@ v14.18.0
 ## Installation
 
 1. Clone the repository
-2. Go to the staging branch. In the backend folder, add a new `config` folder. Create a `default.json` file inside with MongoDB login credentials (cf Notion).
+2. Go to the staging branch. Add a new `config` folder. Create a `default.json` file inside with MongoDB login credentials (cf Notion).
 
 ` { "mongoURI": "mongodb+srv:// login / credentials " }`
 
-3. Install dependencies (in the `backend` folder)
+3. Install dependencies
 
 ```
 $ npm install
