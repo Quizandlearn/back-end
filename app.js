@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
-const userRoutes = require("./routes/users");
-const quizRoutes = require("./routes/quiz");
+const userRoutes = require('./routes/users');
+const quizRoutes = require('./routes/quiz');
+const categoryRoutes = require('./routes/category');
 
 const app = express();
 
@@ -31,7 +32,9 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.json());
-app.use("/api/auth", userRoutes);
-app.use("/api/quiz", quizRoutes);
+app.use('/api/auth', userRoutes);
+app.use('/api/quiz', quizRoutes);
+app.use('/api/categories', categoryRoutes);
+
 
 module.exports = app;
