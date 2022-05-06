@@ -33,7 +33,7 @@ mongoose
 
 app.use(express.json());
 app.use('/api/auth', userRoutes);
-app.use('/api/quiz', quizRoutes);
+app.use('/api/quizzes', quizRoutes);
 app.use('/api/categories', categoryRoutes);
 
 
