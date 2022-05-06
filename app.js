@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require('cors');
 const mongoose = require("mongoose");
 const config = require("config");
 const userRoutes = require('./routes/users');
@@ -7,18 +8,13 @@ const categoryRoutes = require('./routes/category');
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+//specified on which URL we allow cors
+var corsOptions = {
+  origin: 'http://localhost:4000',
+  credentials : true
+ }
+
+app.use(cors(corsOptions));
 
 //connection bdd avec mongoose
 const db = config.get("mongoURI");
