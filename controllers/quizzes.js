@@ -40,3 +40,12 @@ exports.getQuiz = async (req, res, next) => {
     res.status(400).send(error.message);
   }
 };
+
+exports.getQuiz = async (req, res, next) => {
+  const quizzes =  await Quiz.find()
+  if (quizzes) {
+    res.status(200).send(quizzes);
+  } else {
+    res.status(400).send({ message: 'Quizzes non trouvées' });
+  }
+}
