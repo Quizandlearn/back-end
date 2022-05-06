@@ -6,7 +6,7 @@ const quizSchema = mongoose.Schema(
     id_user_owner: { type: mongoose.ObjectId, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    categories: [{ type: mongoose.ObjectId, ref: 'Category' }],
+    categories: [{ type: String, ref: 'Category' }],
     questions: [{ type: mongoose.ObjectId, ref: 'Question' }],
     status: Number,
     ratings: [{ type: mongoose.ObjectId, ref: 'Rating' }],
