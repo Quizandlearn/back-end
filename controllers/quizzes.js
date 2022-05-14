@@ -27,10 +27,10 @@ exports.getQuiz = async (req, res, next) => {
       res.status(400).send('invalid request in quantity');
     } else {
       const quizzes = await Quiz.find()
-          .sort({ _id: 1 })
-          .limit(limit)
-          .skip(skipIndex)
-          .exec();
+        .sort({ _id: 1 })
+        .limit(limit)
+        .skip(skipIndex)
+        .exec();
       res.status(200).send({
         quizzes, currentPage: page, totalPages, numberQuizzes: quizNb,
       });
