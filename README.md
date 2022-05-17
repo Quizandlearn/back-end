@@ -1,24 +1,13 @@
 # Quizandlearn backend
 
-⚠️ **TODO**: ces ci.yml ne font rien, il faudra les remplacer
+[![Build status](../../workflows/CI/badge.svg)](../../actions?query=workflow%3ACI)
 
-⚠️ **TODO**: Short description of the project.
+**Quizandlearn** is a collaborative quizzes plateform based on NodeJs and React.js.
 
-## Features:
-
-⚠️ **TODO**:
-
-- feature1
-- feature2
-- etc
-
-## Releases
-
-Source code only? Or links to published packages / Github releases.
 
 ## Prerequisites
 
-Quizandlearn requires:
+**Quizandlearn** requires:
 
 - Node
 
@@ -63,20 +52,87 @@ $ npm test
 
 ### Linter
 
-⚠️ **TODO**: trouver un Linter
+We use [ESLint](https://eslint.org/) as a linter
 
 ```
-⚠️ **TODO**:
-commande de linter
+$ npm lint
 ```
 
-## Usage:
+## API Resources
+- [POST /signup](#post-signup)
+- [POST /login](#post-login)
+- [GET /api/quizzes](#get-api-quizzes)
+- [POST /api/quizzes](#post-api-quizzes)
+- [GET /api/categories](#get-api-categories)
 
-⚠️ **TODO**: décrire les routes de l'api
+### POST /signup
 
-## Contributing
+Example: http://example.gov/api/auth/signup
 
-This project welcomes contributions and suggestions.
+Response body:
+
+    {
+        "message": "Utilisateur créé !"
+    }
+
+### POST /login
+
+Example: http://example.gov/api/auth/login
+
+Response body:
+
+    {
+        "userId": "78928dfd74013bf4d5097789",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpFGRV8.eyJ1c2VySWQiOiI2MjgyOGRmZDc0MDEzYmY0ZDUwOTc0ZDMiLCJpYXQiOjE2NTI3MjMyODYsImV4cCI6MTY1MjgwOTY4Nn0.FnKqrM30L_l7TjWngLV5Xa-ZIKZ0UFjdB2bBpjAo_9k"
+    }
+
+### GET /quizzes
+
+Example: http://example.gov/api/quizzes
+
+Response body:
+
+    [
+        {
+            "_id": "623499c882e3ab6992c5c193",
+            "id_user_owner": "62321737b7c156b4a8375713",
+            "title": "Quiz test",
+            "description": "Description Text",
+            "questions": [],
+            "status": 1,
+            "ratings": [],
+            "reportings": [],
+            "createdAt": "2022-03-18T14:40:08.333Z",
+            "updatedAt": "2022-03-18T14:40:08.333Z",
+            "__v": 0
+        }
+    ]
+
+### POST /quizzes
+
+Example: http://example.gov/api/quizzes
+
+Response body:
+
+    {
+        "message": "Quiz créé"
+    }
+
+### GET /categories
+
+Example: http://example.gov/api/categories
+
+Response body:
+    
+    {
+        "categories": [
+            "Tech",
+            "Feminism",
+            "Other"
+        ]
+    }
+
+
 
 ## License
 
