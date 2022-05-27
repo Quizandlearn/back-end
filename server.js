@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // Ceci est le server node
 
 // Les importations : app provient de app.js
@@ -8,7 +9,7 @@ const app = require('./app');
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     return val;
   }
   if (port >= 0) {
@@ -20,6 +21,9 @@ const normalizePort = (val) => {
 // L'app tourne sur le port 4000
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
+
+// création d'un server http avec app express
+const server = http.createServer(app);
 
 /* la fonction errorHandler  recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur */
 const errorHandler = (error) => {
@@ -41,9 +45,6 @@ const errorHandler = (error) => {
       throw error;
   }
 };
-
-// création d'un server http avec app express
-const server = http.createServer(app);
 
 server.on('error', errorHandler);
 
