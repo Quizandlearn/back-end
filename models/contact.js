@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 
 // const contactSchema = mongoose.Schema({
-//     id_user: Object, 
+//     id_user: Object,
 //     type: String,
 //   })
 

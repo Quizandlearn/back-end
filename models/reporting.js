@@ -4,8 +4,8 @@ const reportingSchema = mongoose.Schema(
   {
     id_user: { type: mongoose.ObjectId, ref: 'User' },
     id_quiz: { type: mongoose.ObjectId, ref: 'Quiz' },
-    type: [string],
-    status: 'opened' | 'in progress' | 'closed',
+    type: [String],
+    status: 'opened' || 'in progress' || 'closed',
   },
   {
     timestamps: true,
