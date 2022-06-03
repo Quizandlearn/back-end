@@ -44,3 +44,14 @@ exports.login = (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+exports.getUser = async (req, res) => {
+  await User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+      return res.status(200).send(user);
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
