@@ -15,10 +15,25 @@ exports.postQuiz = async (req, res) => {
   }
 };
 
-exports.getQuiz = async (req, res) => {
+exports.getQuiz = async (req, res, next) => {
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  const skipIndex = (page - 1) * limit;
+
   try {
-    const quizzes = await Quiz.find();
-    res.status(200).send(quizzes);
+    const quizNb = await Quiz.count()
+    const totalPages = Math.ceil(quizNb / limit)
+    if (limit > quizNb || page > totalPages) {
+      res.status(400).send("invalid request in quantity");
+    } else {
+      const quizzes = await Quiz.find()
+        .sort({_id:1})
+        .limit(limit)
+        .skip(skipIndex)
+        .exec();
+      res.status(200).send({quizzes: quizzes, currentPage: page, totalPages: totalPages, numberQuizzes: quizNb});
+      next();
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }
