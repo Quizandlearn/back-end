@@ -28,7 +28,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.json());
-app.use('/api/auth', userRoutes);
+app.use('/api', userRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/categories', categoryRoutes);
 

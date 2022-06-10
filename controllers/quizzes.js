@@ -1,20 +1,25 @@
 const Quiz = require('../models/quiz');
 
 exports.postQuiz = async (req, res) => {
-  const createQuiz = await new Quiz({ ...req.body });
-  if (createQuiz) {
-    res.status(200).send({ message: 'Quiz créé' });
+  try {
+    const createQuiz = await new Quiz({
+      id_user_owner: req.body.id_user_owner,
+      title: req.body.title,
+      description: req.body.description,
+      categories: req.body.categories,
+    });
     await createQuiz.save();
-  } else {
-    res.status(400).send({ message: 'Les paramètres ne sont pas valides' });
+    res.status(200).send({ message: 'Quiz créé', idQuiz: createQuiz._id });
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 };
 
 exports.getQuiz = async (req, res) => {
-  const quizzes = await Quiz.find();
-  if (quizzes) {
+  try {
+    const quizzes = await Quiz.find();
     res.status(200).send(quizzes);
-  } else {
-    res.status(400).send({ message: 'Quizzes non trouvées' });
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 };
