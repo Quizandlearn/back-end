@@ -16,22 +16,24 @@ exports.postQuiz = async (req, res) => {
 };
 
 exports.getQuiz = async (req, res, next) => {
-  const page = parseInt(req.query.page);
-  const limit = parseInt(req.query.limit);
+  const page = parseInt(req.query.page, 10);
+  const limit = parseInt(req.query.limit, 10);
   const skipIndex = (page - 1) * limit;
 
   try {
-    const quizNb = await Quiz.count()
-    const totalPages = Math.ceil(quizNb / limit)
+    const quizNb = await Quiz.count();
+    const totalPages = Math.ceil(quizNb / limit);
     if (limit > quizNb || page > totalPages) {
-      res.status(400).send("invalid request in quantity");
+      res.status(400).send('invalid request in quantity');
     } else {
       const quizzes = await Quiz.find()
-        .sort({_id:1})
+        .sort({ _id: 1 })
         .limit(limit)
         .skip(skipIndex)
         .exec();
-      res.status(200).send({quizzes: quizzes, currentPage: page, totalPages: totalPages, numberQuizzes: quizNb});
+      res.status(200).send({
+        quizzes, currentPage: page, totalPages, numberQuizzes: quizNb,
+      });
       next();
     }
   } catch (error) {
