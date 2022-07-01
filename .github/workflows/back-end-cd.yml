@@ -1,0 +1,17 @@
+name: CD
+
+on: [pull_request]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.7.8
+
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "quiet-crag-11269"
+          heroku_email: "quizandlearn.app@gmail.com"
+          usedocker: true

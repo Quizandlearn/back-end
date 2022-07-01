@@ -18,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/margauxln/quizandlearn/issues"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "homepage": "https://github.com/margauxln/quizandlearn#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
