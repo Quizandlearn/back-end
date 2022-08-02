@@ -7,27 +7,18 @@
 
 ## Prerequisites
 
-**Quizandlearn** requires:
-
-- Node
-
-```
-$ nvm install 16
-Now using node v16.9.1 (npm v7.21.1)
-$ node -v
-v16.9.1
-$ nvm use 14
-Now using node v14.18.0 (npm v6.14.15)
-$ node -v
-v14.18.0
-```
+**Quizandlearn** requires `node 16.9.1` with `npm 7.21.1`*
 
 ## Installation
 
 1. Clone the repository
-2. Go to the staging branch. Add a new `config` folder. Create a `default.json` file inside with MongoDB login credentials (cf Notion).
+2. Add a new `.env` file.
 
-` { "mongoURI": "mongodb+srv:// login / credentials " }`
+```
+MONGODB_URI= "mongodb+srv:// login / credentials "
+FRONTEND_URL="http://localhost:3000"
+BACKEND_URL="http://localhost:4000"}
+```
 
 3. Install dependencies
 
@@ -52,10 +43,15 @@ $ npm test
 
 ### Linter
 
-We use [ESLint](https://eslint.org/) as a linter
+**Quizandlearn** follows the [Airbnb style guide](https://github.com/airbnb/javascript).
+To help us we use [ESLint](https://eslint.org/) as a linter:
 
 ```
 $ npm lint
+```
+To automatically fix  what can be:
+```
+npm run lint -- --fix
 ```
 
 ## API Resources
@@ -68,6 +64,15 @@ $ npm lint
 ### POST /signup
 
 Example: http://example.gov/api/auth/signup
+
+Request body:
+
+    {
+        "name": "Jane",
+        "surname": "lala",
+        "email": "user@gmail.com",
+        "password": "Motdepass123!"
+    }
 
 Response body:
 
@@ -83,7 +88,7 @@ Response body:
 
     {
         "userId": "78928dfd74013bf4d5097789",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpFGRV8.eyJ1c2VySWQiOiI2MjgyOGRmZDc0MDEzYmY0ZDUwOTc0ZDMiLCJpYXQiOjE2NTI3MjMyODYsImV4cCI6MTY1MjgwOTY4Nn0.FnKqrM30L_l7TjWngLV5Xa-ZIKZ0UFjdB2bBpjAo_9k"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpFGRfr.eyJ1c2VySWQiOiI2MjgyOGRmZDc0MDEzYmY0ZDUwOTc0ZDMiLCJpYXQiOjE2NTI3MjMyODYsImV4cCI6MTY1MjgwOTY4Nn0.FnKqrM30L_l7TjWngLV5Xa-ZIKZ0UFjdB2bBpjAo_9k"
     }
 
 ### GET /quizzes
@@ -92,30 +97,49 @@ Example: http://example.gov/api/quizzes
 
 Response body:
 
-    [
-        {
-            "_id": "623499c882e3ab6992c5c193",
-            "id_user_owner": "62321737b7c156b4a8375713",
-            "title": "Quiz test",
-            "description": "Description Text",
-            "questions": [],
-            "status": 1,
-            "ratings": [],
-            "reportings": [],
-            "createdAt": "2022-03-18T14:40:08.333Z",
-            "updatedAt": "2022-03-18T14:40:08.333Z",
-            "__v": 0
-        }
-    ]
-
+    {
+    "quizzes": [
+                    {
+                        "_id": "62d51c761cd85d9abc2cfrfe",
+                        "id_user_owner": "6274f6fe6f466dabdc420ff1",
+                        "title": "Titre 3",
+                        "description": "Description 3",
+                        "categories": [
+                            "623dd301933112fee687ee45"
+                        ],
+                        "questions": [
+                            "62d51c761cd85d9abc2ce701",
+                            "62d51c761cd85d9abc2ce702"
+                        ],
+                        "ratings": [],
+                        "reportings": [],
+                        "createdAt": "2022-07-18T08:40:22.198Z",
+                        "updatedAt": "2022-07-18T08:40:22.490Z",
+                        "__v": 0
+                    }
+            ],
+            "currentPage": 2,
+            "totalPages": 18,
+            "numberQuizzes": 35
+    }
 ### POST /quizzes
 
 Example: http://example.gov/api/quizzes
 
+Request body:
+
+    {
+        "id_user_owner": "623c6ff8bb5ed6fa91703df7",
+        "title": "REACT 2",
+        "description": "Description",
+        "categories": "623fr301933112fee687ee45"
+    }
+
 Response body:
 
     {
-        "message": "Quiz créé"
+        "message": "Quiz créé",
+        "idQuiz": "62e92ffr70f06db885f3hgtf"
     }
 
 ### GET /categories
@@ -126,14 +150,24 @@ Response body:
     
     {
         "categories": [
-            "Tech",
-            "Feminism",
-            "Other"
+            {
+                "_id": "623dd2b5933112fee687ee44",
+                "title": "Tech"
+            },
+            {
+                "_id": "623dd301933112feefr7ee45",
+                "title": "Feminism"
+            },
+            {
+                "_id": "627527dfr52c45e662afd317",
+                "title": "Other"
+            }
         ]
     }
 
 
+## Deployment
 
-## License
+**Quizandlearn** is deployed automatically on pull request on a heroku server at https://quiz-and-learn-heroku-front.herokuapp.com/
 
-See the [LICENCE](LICENSE) file for details.
+
