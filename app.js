@@ -5,22 +5,20 @@ const config = require('config');
 const userRoutes = require('./routes/users');
 const quizRoutes = require('./routes/quiz');
 const categoryRoutes = require('./routes/category');
+require('dotenv').config();
 
 const app = express();
 
 // specified on which URL we allow cors
 const corsOptions = {
-  origin: 'http://localhost:4000',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 };
 
 app.use(cors(corsOptions));
 
-// connection bdd avec mongoose
-const db = config.get('mongoURI');
-
 mongoose
-  .connect(db, {
+  .connect(process.env.MONGODB_URI || config.get('mongoURI'), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

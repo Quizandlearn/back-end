@@ -6,6 +6,7 @@ const questionSchema = mongoose.Schema({
   choices: [{ type: mongoose.ObjectId, ref: 'Choice', required: true }],
   explanation: String,
   link_to_learn_more: String,
+  position: { type: Number, required: true },
 });
 
 module.exports = mongoose.model('Question', questionSchema);

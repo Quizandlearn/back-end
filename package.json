@@ -7,6 +7,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "lint": "eslint ./",
+    "lint:fix": "npm run lint -- --fix",
     "test": "mocha tests/"
   },
   "repository": {
@@ -18,13 +19,18 @@
   "bugs": {
     "url": "https://github.com/margauxln/quizandlearn/issues"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "homepage": "https://github.com/margauxln/quizandlearn#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "config": "^3.3.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
+    "mockery": "^2.1.0",
     "mongoose": "^6.2.4",
     "mongoose-unique-validator": "^3.0.0",
     "npm": "^8.5.3"
