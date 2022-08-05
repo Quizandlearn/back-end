@@ -55,3 +55,24 @@ exports.getUser = async (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+exports.modifyUser = async (req, res) => {
+  const userToModify = new User({
+    _id: req.params.id,
+    name: req.body.name,
+    surname: req.body.surname,
+    email: req.body.email,
+  });
+
+  await User.updateOne({ _id: req.params.id }, userToModify).then(() => {
+    res.status(200).json({
+      message: 'User updated successfully!',
+    });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error,
+      });
+    },
+  );
+};
