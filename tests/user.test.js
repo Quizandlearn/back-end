@@ -86,7 +86,6 @@ describe('User', async () => {
           return this;
         },
         json() {
-          return { message: 'some error message !' };
         },
       };
       const saveStub = await sinon.stub(UserTest.prototype, 'save').callsFake(() => Promise.resolve());
