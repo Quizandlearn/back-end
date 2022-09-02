@@ -1,46 +1,26 @@
 # Quizandlearn backend
 
-⚠️ **TODO**: ces ci.yml ne font rien, il faudra les remplacer
+[![Build status](../../workflows/CI/badge.svg)](../../actions?query=workflow%3ACI)
 
-⚠️ **TODO**: Short description of the project.
+**Quizandlearn** is a collaborative quizzes plateform based on NodeJs and React.js.
 
-## Features:
-
-⚠️ **TODO**:
-
-- feature1
-- feature2
-- etc
-
-## Releases
-
-Source code only? Or links to published packages / Github releases.
 
 ## Prerequisites
 
-Quizandlearn requires:
-
-- Node
-
-```
-$ nvm install 16
-Now using node v16.9.1 (npm v7.21.1)
-$ node -v
-v16.9.1
-$ nvm use 14
-Now using node v14.18.0 (npm v6.14.15)
-$ node -v
-v14.18.0
-```
+**Quizandlearn** requires `node 16.9.1` with `npm 7.21.1`*
 
 ## Installation
 
 1. Clone the repository
-2. Go to the staging branch. In the backend folder, add a new `config` folder. Create a `default.json` file inside with MongoDB login credentials (cf Notion).
+2. Add a new `.env` file.
 
-` { "mongoURI": "mongodb+srv:// login / credentials " }`
+```
+MONGODB_URI= "mongodb+srv:// login / credentials "
+FRONTEND_URL="http://localhost:3000"
+BACKEND_URL="http://localhost:4000"}
+```
 
-3. Install dependencies (in the `backend` folder)
+3. Install dependencies
 
 ```
 $ npm install
@@ -63,21 +43,131 @@ $ npm test
 
 ### Linter
 
-⚠️ **TODO**: trouver un Linter
+**Quizandlearn** follows the [Airbnb style guide](https://github.com/airbnb/javascript).
+To help us we use [ESLint](https://eslint.org/) as a linter:
 
 ```
-⚠️ **TODO**:
-commande de linter
+$ npm lint
+```
+To automatically fix  what can be:
+```
+npm run lint -- --fix
 ```
 
-## Usage:
+## API Resources
+- [POST /signup](#post-signup)
+- [POST /login](#post-login)
+- [GET /api/quizzes](#get-api-quizzes)
+- [POST /api/quizzes](#post-api-quizzes)
+- [GET /api/categories](#get-api-categories)
 
-⚠️ **TODO**: décrire les routes de l'api
+### POST /signup
 
-## Contributing
+Example: http://example.gov/api/auth/signup
 
-This project welcomes contributions and suggestions.
+Request body:
 
-## License
+    {
+        "name": "Jane",
+        "surname": "lala",
+        "email": "user@gmail.com",
+        "password": "Motdepass123!"
+    }
 
-See the [LICENCE](LICENSE) file for details.
+Response body:
+
+    {
+        "message": "Utilisateur créé !"
+    }
+
+### POST /login
+
+Example: http://example.gov/api/auth/login
+
+Response body:
+
+    {
+        "userId": "78928dfd74013bf4d5097789",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpFGRfr.eyJ1c2VySWQiOiI2MjgyOGRmZDc0MDEzYmY0ZDUwOTc0ZDMiLCJpYXQiOjE2NTI3MjMyODYsImV4cCI6MTY1MjgwOTY4Nn0.FnKqrM30L_l7TjWngLV5Xa-ZIKZ0UFjdB2bBpjAo_9k"
+    }
+
+### GET /quizzes
+
+Example: http://example.gov/api/quizzes
+
+Response body:
+
+    {
+    "quizzes": [
+                    {
+                        "_id": "62d51c761cd85d9abc2cfrfe",
+                        "id_user_owner": "6274f6fe6f466dabdc420ff1",
+                        "title": "Titre 3",
+                        "description": "Description 3",
+                        "categories": [
+                            "623dd301933112fee687ee45"
+                        ],
+                        "questions": [
+                            "62d51c761cd85d9abc2ce701",
+                            "62d51c761cd85d9abc2ce702"
+                        ],
+                        "ratings": [],
+                        "reportings": [],
+                        "createdAt": "2022-07-18T08:40:22.198Z",
+                        "updatedAt": "2022-07-18T08:40:22.490Z",
+                        "__v": 0
+                    }
+            ],
+            "currentPage": 2,
+            "totalPages": 18,
+            "numberQuizzes": 35
+    }
+### POST /quizzes
+
+Example: http://example.gov/api/quizzes
+
+Request body:
+
+    {
+        "id_user_owner": "623c6ff8bb5ed6fa91703df7",
+        "title": "REACT 2",
+        "description": "Description",
+        "categories": "623fr301933112fee687ee45"
+    }
+
+Response body:
+
+    {
+        "message": "Quiz créé",
+        "idQuiz": "62e92ffr70f06db885f3hgtf"
+    }
+
+### GET /categories
+
+Example: http://example.gov/api/categories
+
+Response body:
+    
+    {
+        "categories": [
+            {
+                "_id": "623dd2b5933112fee687ee44",
+                "title": "Tech"
+            },
+            {
+                "_id": "623dd301933112feefr7ee45",
+                "title": "Feminism"
+            },
+            {
+                "_id": "627527dfr52c45e662afd317",
+                "title": "Other"
+            }
+        ]
+    }
+
+
+## Deployment
+
+**Quizandlearn** is deployed automatically on pull request on a heroku server at https://quiz-and-learn-heroku-front.herokuapp.com/
+
+
