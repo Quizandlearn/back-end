@@ -6,16 +6,36 @@ const quizSchema = mongoose.Schema(
     id_user_owner: { type: mongoose.ObjectId, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    categories: [{ type: mongoose.ObjectId, ref: 'Category' }],
-    questions: [{ type: mongoose.ObjectId, ref: 'Question' }],
+    categories: [{ type: String }],
+    questions: [{
+      title: { type: String, required: true },
+      choices: [{
+        content: { type: String, required: true },
+        isCorrect: { type: Boolean, required: true },
+      }],
+      explanation: String,
+      link_to_learn_more: String,
+    }],
     status: Number,
-    ratings: [{ type: mongoose.ObjectId, ref: 'Rating' }],
-    reportings: [{ type: mongoose.ObjectId, ref: 'Reporting' }],
+    ratings:
+      [{
+        id_user: { type: mongoose.ObjectId, ref: 'User' },
+        nb_stars: Number,
+      }],
+    reportings:
+      [{
+        id_user: { type: mongoose.ObjectId, ref: 'User' },
+        type: [String],
+        status: 'opened' || 'in progress' || 'closed',
+      },
+      {
+        timestamps: true,
+      }],
   },
   {
     timestamps: true,
-  },
+  }
+  ,
 );
-
 quizSchema.plugin(uniqueValidator);
 module.exports = mongoose.model('Quiz', quizSchema);

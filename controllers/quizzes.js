@@ -7,6 +7,8 @@ exports.postQuiz = async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       categories: req.body.categories,
+      questions: req.body.questions,
+      status: req.body.status,
     });
     await createQuiz.save();
     res.status(200).send({ message: 'Quiz créé', idQuiz: createQuiz._id });
@@ -15,7 +17,7 @@ exports.postQuiz = async (req, res) => {
   }
 };
 
-exports.getQuiz = async (req, res, next) => {
+exports.getQuizzes = async (req, res, next) => {
   const page = parseInt(req.query.page, 10);
   const limit = parseInt(req.query.limit, 10);
   const skipIndex = (page - 1) * limit;
@@ -36,6 +38,20 @@ exports.getQuiz = async (req, res, next) => {
       });
       next();
     }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+// Sert à récupérer la data du quiz pour l'afficher à l'utilisateur
+// qui veut répondre dans un second temps au quiz
+exports.getQuizById = async (req, res, next) => {
+  try {
+    const quiz = await Quiz.findOne({ _id: req.params.id });
+    res.status(200).send({
+      quiz,
+    });
+    next();
   } catch (error) {
     res.status(400).send(error.message);
   }
