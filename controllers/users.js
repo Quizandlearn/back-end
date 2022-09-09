@@ -48,3 +48,35 @@ exports.login = (req, res) => User.findOne({ email: req.body.email })
       });
   })
   .catch((error) => res.status(500).json({ error }));
+
+exports.getUser = async (req, res) => {
+  await User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+      return res.status(200).send(user);
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+exports.modifyUser = async (req, res) => {
+  const userToModify = new User({
+    _id: req.params.id,
+    name: req.body.name,
+    surname: req.body.surname,
+    email: req.body.email,
+  });
+
+  await User.updateOne({ _id: req.params.id }, userToModify).then(() => {
+    res.status(200).json({
+      message: 'User updated successfully!',
+    });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error,
+      });
+    },
+  );
+};
