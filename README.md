@@ -98,29 +98,23 @@ Example: http://example.gov/api/quizzes
 Response body:
 
     {
-    "quizzes": [
-                    {
-                        "_id": "62d51c761cd85d9abc2cfrfe",
-                        "id_user_owner": "6274f6fe6f466dabdc420ff1",
-                        "title": "Titre 3",
-                        "description": "Description 3",
-                        "categories": [
-                            "623dd301933112fee687ee45"
-                        ],
-                        "questions": [
-                            "62d51c761cd85d9abc2ce701",
-                            "62d51c761cd85d9abc2ce702"
-                        ],
-                        "ratings": [],
-                        "reportings": [],
-                        "createdAt": "2022-07-18T08:40:22.198Z",
-                        "updatedAt": "2022-07-18T08:40:22.490Z",
-                        "__v": 0
-                    }
-            ],
-            "currentPage": 2,
-            "totalPages": 18,
-            "numberQuizzes": 35
+          "quizzes": [
+            {
+              "_id": "ObjectId",
+              "id_user_owner": "ObjectId",
+              "title": "Quiz title",
+              "description": "Quiz description",
+              "categories": [
+                "category"
+              ],
+              "questions": [...],
+              "reportings": [],
+              "ratings": [],
+              "createdAt": "2022-09-09T14:09:38.963Z",
+              "updatedAt": "2022-09-09T14:09:38.963Z",
+              "__v": 0
+          }
+        ]
     }
 ### POST /quizzes
 
@@ -129,10 +123,59 @@ Example: http://example.gov/api/quizzes
 Request body:
 
     {
-        "id_user_owner": "623c6ff8bb5ed6fa91703df7",
-        "title": "REACT 2",
-        "description": "Description",
-        "categories": "623fr301933112fee687ee45"
+        "id_user_owner": "ObjectId",
+        "title": "Quiz title",
+        "description": "Quiz description",
+        "categories": [
+            "category"
+        ],
+        "questions": [
+            {
+                "title": "First question title",
+                "choices": [
+                    {
+                        "content": "wrong answer",
+                        "isCorrect": false
+                    },
+                    {
+                        "content": "good answer",
+                        "isCorrect": true
+                    }
+                ],
+                "explanation": "First question answer explanation",
+                "link_to_learn_more": "url"
+            },
+             {
+                "title": "Second question title",
+                "choices": [
+                    {
+                        "content": "wrong answer",
+                        "isCorrect": false
+                    },
+                    {
+                        "content": "good answer",
+                        "isCorrect": true
+                    }
+                ],
+                "explanation": "Second question answer explanation",
+                "link_to_learn_more": "url"
+             },
+            {
+                "title": "Third question title",
+                "choices": [
+                    {
+                        "content": "good answer",
+                        "isCorrect": true
+                    },
+                    {
+                        "content": "wrong answer",
+                        "isCorrect": false
+                    }
+                ],
+                "explanation": "Third question answer explanation",
+                 "link_to_learn_more": "url"
+            }
+        ]
     }
 
 Response body:
