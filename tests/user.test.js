@@ -194,7 +194,9 @@ describe('User', async () => {
         },
       };
 
-      const findOneStub = await sinon.stub(UserTest, 'findOne').callsFake(() => Promise.resolve(false));
+      const user = undefined;
+
+      const findOneStub = await sinon.stub(UserTest, 'findOne').callsFake(() => Promise.resolve(user));
       await userController.login(req, res);
       expect(findOneStub.calledOnce).to.be.true;
       expect(res.resultStatus).to.eq(401);
