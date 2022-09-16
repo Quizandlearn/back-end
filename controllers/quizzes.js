@@ -47,7 +47,7 @@ exports.getQuizzes = async (req, res, next) => {
 // qui veut répondre dans un second temps au quiz
 exports.getQuizById = async (req, res, next) => {
   try {
-    const quiz = await Quiz.findOne({ _id: req.params.id });
+    const quiz = await Quiz.findOne({ _id: req.query.id });
     res.status(200).send({
       quiz,
     });
