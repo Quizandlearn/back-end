@@ -9,5 +9,8 @@ router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/user/:id', auth, userCtrl.getUser);
 router.put('/user/:id', auth, userCtrl.modifyUser);
+router.put('/user/:id/createdQuizzes', auth, userCtrl.modifyUserCreatedQuizzes);
+router.put('/user/:id/answeredQuizzes', auth, userCtrl.modifyUserAnsweredQuizzes);
+router.put('/user/:id/favoriteQuizzes', auth, userCtrl.modifyUserFavoriteQuizzes);
 
 module.exports = router;
