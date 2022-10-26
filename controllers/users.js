@@ -64,15 +64,34 @@ exports.modifyUser = async (req, res) => {
     email: req.body.email,
   });
 
-  await User.updateOne({ _id: req.params.id }, userToModify).then(() => {
-    res.status(200).json({
-      message: 'User updated successfully!',
-    });
-  }).catch(
-    (error) => {
+  await User.updateOne({ _id: req.params.id }, userToModify)
+    .then(() => {
+      res.status(200).json({
+        message: "User updated successfully!",
+      });
+    })
+    .catch((error) => {
       res.status(400).json({
         error,
       });
-    },
-  );
+    });
+};
+
+exports.modifyPassword = async (req, res) => {
+  bcrypt.hash(req.body.newPassword, 10).then((hash) => {
+    const passwordToUpdate = new User({
+      _id: req.params.id,
+      password: hash,
+    });
+
+    User.updateOne({ _id: req.params.id }, passwordToUpdate)
+      .then(() => {
+        res.status(200).json({
+          message: "Password updated successfully!",
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error });
+      });
+  });
 };
