@@ -91,14 +91,16 @@ exports.modifyPassword = async (req, res) => {
         return res.status(401).json({ error: 'Mot de passe incorrect !' });
       }
       return true;
-    } catch {
-      (error) => res.status(500).json({ error });
+    } catch (error) {
+      res.status(500).json({ error });
     }
+
+    return undefined;
   }
 
-  const isValidPassport = await passwordValidation();
+  const isValidPassword = await passwordValidation();
 
-  if (isValidPassport === true) {
+  if (isValidPassword === true) {
     try {
       const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
 
@@ -111,8 +113,10 @@ exports.modifyPassword = async (req, res) => {
       return res
         .status(200)
         .json({ message: 'Mot de passe a été mis a jour!' });
-    } catch {
-      (error) => res.status(400).json({ error });
+    } catch (error) {
+      return res.status(400).json({ error });
     }
   }
+
+  return undefined;
 };
