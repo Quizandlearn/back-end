@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
-// import Contact from './contact';
-// import Completion from './completion';
-// import Quiz from './quiz';
-// import Rating from './rating';
-// import Reporting from './reporting';
 
 const uniqueValidator = require('mongoose-unique-validator');
+
+const quizInUserSchema = mongoose.Schema({
+  id_quiz: { type: mongoose.ObjectId, ref: 'Quiz' },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  categories: [{ type: String }],
+});
 
 const userSchema = mongoose.Schema(
   {
@@ -13,16 +15,9 @@ const userSchema = mongoose.Schema(
     surname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    // photo: String,
-    // contacts: [Contact],
-    // roles: {
-    //   type: String,
-    //   enum : ['user','admin'],
-    //   default: 'user'
-    // },
-    favorite_quizzes: [{ type: mongoose.ObjectId, ref: 'Quiz' }],
-    created_quizzes: [{ type: mongoose.ObjectId, ref: 'Quiz' }],
-    // completions: [Completion],
+    created_quizzes: [quizInUserSchema],
+    answered_quizzes: [quizInUserSchema],
+    favorite_quizzes: [quizInUserSchema],
     ratings: [{ type: mongoose.ObjectId, ref: 'Rating' }],
     reportings: [{ type: mongoose.ObjectId, ref: 'Reporting' }],
   },
