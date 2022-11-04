@@ -4,6 +4,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const quizSchema = mongoose.Schema(
   {
     id_user_owner: { type: mongoose.ObjectId, required: true },
+    name_user_owner: { type: String, required: true },
+    surname_user_owner: { type: String, required: true },
+    quiz_answers: [{ type: mongoose.ObjectId, ref: 'Answer' }],
     title: { type: String, required: true },
     description: { type: String, required: true },
     categories: [{ type: String }],

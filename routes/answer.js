@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 
-const categoryCtrl = require('../controllers/categories');
+const answerCtrl = require('../controllers/answers');
 
-router.get('/', auth, categoryCtrl.getCategories);
+router.post('/', auth, answerCtrl.postAnswer);
 
 module.exports = router;

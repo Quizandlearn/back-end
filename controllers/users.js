@@ -120,3 +120,54 @@ exports.modifyPassword = async (req, res) => {
 
   return undefined;
 };
+
+exports.modifyUserCreatedQuizzes = async (req, res) => {
+  await User.updateOne(
+    { _id: req.params.id },
+    { $push: { created_quizzes: req.body.created_quizzes } },
+  ).then(() => {
+    res.status(200).json({
+      message: 'Created_quizzes updated successfully!',
+    });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error,
+      });
+    },
+  );
+};
+
+exports.modifyUserAnsweredQuizzes = async (req, res) => {
+  await User.updateOne(
+    { _id: req.params.id },
+    { $push: { answered_quizzes: req.body.answered_quizzes } },
+  ).then(() => {
+    res.status(200).json({
+      message: 'Answered_quizzes updated successfully!',
+    });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error,
+      });
+    },
+  );
+};
+
+exports.modifyUserFavoriteQuizzes = async (req, res) => {
+  await User.updateOne(
+    { _id: req.params.id },
+    { $push: { favorite_quizzes: req.body.favorite_quizzes } },
+  ).then(() => {
+    res.status(200).json({
+      message: 'Favorite_quizzes updated successfully!',
+    });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error,
+      });
+    },
+  );
+};
