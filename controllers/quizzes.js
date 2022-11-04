@@ -4,6 +4,8 @@ exports.postQuiz = async (req, res) => {
   try {
     const createQuiz = await new Quiz({
       id_user_owner: req.body.id_user_owner,
+      name_user_owner: req.body.name_user_owner,
+      surname_user_owner: req.body.surname_user_owner,
       title: req.body.title,
       description: req.body.description,
       categories: req.body.categories,
