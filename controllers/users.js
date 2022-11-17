@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const {
+  checkPasswordMatch,
+  updateUserPassword,
+} = require('../services/PasswordService');
 
 exports.signup = (req, res) =>
   bcrypt
@@ -134,33 +138,12 @@ exports.modifyUserFavoriteQuizzes = async (req, res) => {
 exports.modifyPassword = async (req, res) => {
   const user = await User.findOne({ _id: req.params.id });
 
-  async function passwordValidation() {
-    return await bcrypt.compare(req.body.password, user.password);
-  }
-
   try {
-    const isValidPassword = await passwordValidation();
+    await checkPasswordMatch(user, req.body.password, res);
+    await updateUserPassword(req);
 
-    if (isValidPassword === true) {
-      try {
-        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
-
-        const passwordToUpdate = new User({
-          _id: req.params.id,
-          password: hashedPassword,
-        });
-
-        await User.updateOne({ _id: req.params.id }, passwordToUpdate);
-        return res
-          .status(200)
-          .json({ message: 'Mot de passe a été mis a jour!' });
-      } catch (error) {
-        res.status(400).json({ error });
-      }
-    } else {
-      return res.status(401).json({ error: 'Mot de passe incorrect !' });
-    }
-  } catch (error) {
-    res.status(500).json({ error });
+    return res.status(200).json({ message: 'Mot de passe mis à jour!' });
+  } catch (e) {
+    return res.status(500);
   }
 };
