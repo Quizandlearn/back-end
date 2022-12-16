@@ -31,7 +31,7 @@ exports.getQuizzes = async (req, res, next) => {
       res.status(400).send('invalid request in quantity');
     } else {
       const quizzes = await Quiz.find()
-        .sort({ _id: 1 })
+        .sort({ _id: -1 })
         .limit(limit)
         .skip(skipIndex)
         .exec();
