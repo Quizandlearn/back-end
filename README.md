@@ -124,6 +124,8 @@ Request body:
 
     {
         "id_user_owner": "ObjectId",
+        "name_user_owner": { type: String, required: true }
+        "surname_user_owner": { type: String, required: true }
         "title": "Quiz title",
         "description": "Quiz description",
         "categories": [
