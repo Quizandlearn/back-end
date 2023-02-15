@@ -7,6 +7,10 @@ const userCtrl = require('../controllers/users');
 
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
+router.get('/user/:id/quizzes', auth, userCtrl.getUserCreatedQuizzes);
+// router.get('/user/:id/answeredQuizzes', auth, userCtrl.getUserAnsweredQuizzes);
+// router.get('/user/:id/favoriteQuizzes', auth, userCtrl.getUserFavoriteQuizzes);
+
 router.get('/user/:id', auth, userCtrl.getUser);
 router.put('/user/:id', auth, userCtrl.modifyUser);
 router.put('/user/:id/createdQuizzes', auth, userCtrl.modifyUserCreatedQuizzes);

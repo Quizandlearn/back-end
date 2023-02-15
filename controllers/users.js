@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const Quiz = require('../models/quiz');
 const {
   checkPasswordMatch,
   updateUserPassword,
@@ -60,6 +61,15 @@ exports.getUser = async (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+exports.getUserCreatedQuizzes = async (req, res) => {
+  const quizzes = await Quiz.find({ id_user_owner: req.params.id }).exec();
+  return res.status(200).send(quizzes);
+};
+
+exports.getUserAnsweredQuizzes = async (req, res) => res.status(501).json({ error: 'Not implemented yet' });
+
+exports.getUserFavoriteQuizzes = async (req, res) => res.status(501).json({ error: 'Not implemented yet' });
 
 exports.modifyUser = async (req, res) => {
   const userToModify = new User({
