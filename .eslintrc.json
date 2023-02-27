@@ -21,6 +21,7 @@
         "chai-friendly"
     ],
     "rules": {
-        "no-underscore-dangle": [1, { "allowAfterThis": true }]
+        "no-console": "off",
+        "no-underscore-dangle": "off"
     }
 }
