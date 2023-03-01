@@ -7,11 +7,11 @@ const quizModel = require('../models/quiz');
 const { expect } = chai;
 
 describe('Quiz', async () => {
-  describe('/POST', () => {
+  describe('/POST quiz', () => {
     afterEach(() => {
       sinon.restore();
     });
-    it('should returns a status 200 when ok', async () => {
+    it('should returns a status 201 when ok', async () => {
       const req = {
         body: {
           id_user_owner: 'mongooseUserId',
@@ -34,7 +34,7 @@ describe('Quiz', async () => {
       const saveStub = await sinon.stub(quizModel.prototype, 'save').callsFake(() => Promise.resolve());
       await quizController.postQuiz(req, res);
       expect(saveStub.calledOnce).to.be.true;
-      expect(res.resultStatus).to.eq(200);
+      expect(res.resultStatus).to.eq(201);
     });
     it('should returns a status 400 bad request when required parameter (ie title) is missing', async () => {
       const req = {

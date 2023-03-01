@@ -13,7 +13,7 @@ exports.postQuiz = async (req, res) => {
       status: req.body.status,
     });
     await createQuiz.save();
-    res.status(200).send({ message: 'Quiz créé', idQuiz: createQuiz._id });
+    res.status(201).send({ message: 'Quiz créé', idQuiz: createQuiz._id });
   } catch (error) {
     res.status(400).send(error.message);
   }
